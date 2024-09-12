@@ -4,13 +4,27 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
-  hipoteca: Yup.string().default(''),
-  Canasta: Yup.string().default(''),
-  Prestamos: Yup.string().default(''),
-  Transporte: Yup.string().default(''),
-  Servicios: Yup.string().default(''),
-  Seguro: Yup.string().default(''),
-  Varios: Yup.string().default(''),
+  hipoteca: Yup.string()
+    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
+    .default('0'),
+  Canasta: Yup.string()
+    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
+    .default('0'),
+  Prestamos: Yup.string()
+    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
+    .default('0'),
+  Transporte: Yup.string()
+    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
+    .default('0'),
+  Servicios: Yup.string()
+    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
+    .default('0'),
+  Seguro: Yup.string()
+    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
+    .default('0'),
+  Varios: Yup.string()
+    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
+    .default('0'),
 }).test(
   'at-least-one-required',
   'Al menos uno de los campos debe estar lleno',
@@ -23,9 +37,10 @@ const validationSchema = Yup.object().shape({
             values.Varios.trim() !== ''
 );
 
-const Formulario = () => {
-  const handleSubmit = (values) => {
+const FormularioEgreso = () => {
+  const handleSubmit = (values, { resetForm }) => {
     Alert.alert('Formulario Enviado');
+    resetForm(); // Vaciar los campos después de enviar
   };
 
   return (
@@ -33,7 +48,15 @@ const Formulario = () => {
       <Text style={styles.title}>Formulario de Egresos</Text>
       <Formik
         validationSchema={validationSchema}
-        initialValues={{ hipoteca: '', Canasta:'', Prestamos:'', Transporte:'', Servicios:'', Seguro:'', Varios:'' }}
+        initialValues={{
+          hipoteca: '',
+          Canasta: '',
+          Prestamos: '',
+          Transporte: '',
+          Servicios: '',
+          Seguro: '',
+          Varios: ''
+        }}
         onSubmit={handleSubmit}
       >
         {({ handleChange, handleBlur, handleSubmit, errors, touched, values }) => (
@@ -42,7 +65,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('hipoteca')}
-              keyboardType="numeric" 
+              keyboardType="numeric"
               onBlur={handleBlur('hipoteca')}
               value={values.hipoteca}
               placeholder="Digite el monto de la hipoteca"
@@ -55,7 +78,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Canasta')}
-              keyboardType="numeric" 
+              keyboardType="numeric"
               onBlur={handleBlur('Canasta')}
               value={values.Canasta}
               placeholder="Cuanto gasta en víveres"
@@ -68,7 +91,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Prestamos')}
-              keyboardType="numeric" 
+              keyboardType="numeric"
               onBlur={handleBlur('Prestamos')}
               value={values.Prestamos}
               placeholder="Monto en prestamos"
@@ -81,7 +104,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Transporte')}
-              keyboardType="numeric" 
+              keyboardType="numeric"
               onBlur={handleBlur('Transporte')}
               value={values.Transporte}
               placeholder="Costo del transporte"
@@ -94,7 +117,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Servicios')}
-              keyboardType="numeric" 
+              keyboardType="numeric"
               onBlur={handleBlur('Servicios')}
               value={values.Servicios}
               placeholder="Cuanto gasta en servicios"
@@ -107,7 +130,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Seguro')}
-              keyboardType="numeric" 
+              keyboardType="numeric"
               onBlur={handleBlur('Seguro')}
               value={values.Seguro}
               placeholder="El costo de los seguros"
@@ -120,7 +143,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Varios')}
-              keyboardType="numeric" 
+              keyboardType="numeric"
               onBlur={handleBlur('Varios')}
               value={values.Varios}
               placeholder="Establecer si tiene gastos varios"
@@ -156,6 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
+    borderColor:'cyan'
   },
   input: {
     height: 40,
@@ -180,4 +204,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Formulario;
+export default FormularioEgreso;

@@ -1,13 +1,11 @@
 import React from "react";
-import HomeScreen from './src/screens/homescreen'
-import { NavigationContainer } from "@react-navigation/native";
+import Home from './src/screens/homescreen'
 import { View, StyleSheet, SafeAreaView } from "react-native";
-import Formulario from "./src/screens/FormularioEgreso";
 
 export default function App(){
   return(
     <SafeAreaView style={styles.container}>
-        <Formulario/>
+      <Home/>
     </SafeAreaView>
   )
 }
