@@ -11,7 +11,6 @@ const tiposDeIngreso = [
   { label: 'Ingresos Varios', value: 'Ingresos Varios' },
 ];
 
-// Esquema de Validación
 const validationSchema = Yup.object().shape({
   tipoIngreso: Yup.array().min(1, 'Debes seleccionar al menos un tipo de ingreso'),
   montos: Yup.object().shape(
@@ -36,20 +35,17 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-// Componente Principal
 const FormularioIngreso = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [formValues, setFormValues] = useState(null);
 
-  // Manejo de Envío
   const handleSubmit = (values, { resetForm }) => {
     console.log('Valores al enviar:', values);
     setFormValues(values);
     setModalVisible(true);
-    resetForm(); // Restablece el formulario
+    resetForm();
   };
 
-  // Deshabilitar el Botón de Envío
   const isSubmitDisabled = (values) => {
     if (!Array.isArray(values.tipoIngreso) || values.tipoIngreso.length === 0) return true;
 
@@ -61,7 +57,6 @@ const FormularioIngreso = () => {
     return false;
   };
 
-  // Renderización del Componente
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Formulario de Ingresos</Text>
@@ -146,7 +141,6 @@ const FormularioIngreso = () => {
   );
 };
 
-// Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,

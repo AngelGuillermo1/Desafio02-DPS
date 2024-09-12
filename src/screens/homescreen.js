@@ -3,6 +3,7 @@ import { Button, View, Text, StyleSheet } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import FormularioEgreso from "./FormularioEgreso";
+import FormularioIngreso from "./FormularioIngreso";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,12 @@ const HomeScreen = ({navigation}) => {
             title="Ir al formulario de egreso"
             onPress={() => navigation.navigate('FormularioEgreso')}
             />
+            <Button
+            title="Ir al formulario de Ingreso"
+            onPress={() => navigation.navigate('FormularioIngreso')}
+            />
         </View>
+        
     );
 };
 
@@ -24,6 +30,7 @@ export default function Home(){
             <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="Home" component={HomeScreen}/>
                 <Stack.Screen name="FormularioEgreso" component={FormularioEgreso}/>
+                <Stack.Screen name="FormularioIngreso" component={FormularioIngreso}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
