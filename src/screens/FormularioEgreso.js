@@ -30,6 +30,7 @@ const Formulario = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Formulario de Egresos</Text>
       <Formik
         validationSchema={validationSchema}
         initialValues={{ hipoteca: '', Canasta:'', Prestamos:'', Transporte:'', Servicios:'', Seguro:'', Varios:'' }}
@@ -41,6 +42,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('hipoteca')}
+              keyboardType="numeric" 
               onBlur={handleBlur('hipoteca')}
               value={values.hipoteca}
               placeholder="Digite el monto de la hipoteca"
@@ -53,6 +55,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Canasta')}
+              keyboardType="numeric" 
               onBlur={handleBlur('Canasta')}
               value={values.Canasta}
               placeholder="Cuanto gasta en víveres"
@@ -65,6 +68,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Prestamos')}
+              keyboardType="numeric" 
               onBlur={handleBlur('Prestamos')}
               value={values.Prestamos}
               placeholder="Monto en prestamos"
@@ -77,6 +81,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Transporte')}
+              keyboardType="numeric" 
               onBlur={handleBlur('Transporte')}
               value={values.Transporte}
               placeholder="Costo del transporte"
@@ -89,6 +94,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Servicios')}
+              keyboardType="numeric" 
               onBlur={handleBlur('Servicios')}
               value={values.Servicios}
               placeholder="Cuanto gasta en servicios"
@@ -101,6 +107,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Seguro')}
+              keyboardType="numeric" 
               onBlur={handleBlur('Seguro')}
               value={values.Seguro}
               placeholder="El costo de los seguros"
@@ -113,6 +120,7 @@ const Formulario = () => {
             <TextInput
               style={styles.input}
               onChangeText={handleChange('Varios')}
+              keyboardType="numeric" 
               onBlur={handleBlur('Varios')}
               value={values.Varios}
               placeholder="Establecer si tiene gastos varios"
@@ -163,6 +171,12 @@ const styles = StyleSheet.create({
   texto: {
     fontSize: 16,
     marginBottom: 8,
+  },
+  title: {
+    fontSize: 24,    
+    fontWeight: 'bold', 
+    marginBottom: 24,  
+    textAlign: 'center' 
   }
 });
 
