@@ -1,176 +1,246 @@
-import React from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet, Text, Alert, Switch, ScrollView } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
-  hipoteca: Yup.string()
-    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
-    .default('0'),
-  Canasta: Yup.string()
-    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
-    .default('0'),
-  Prestamos: Yup.string()
-    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
-    .default('0'),
-  Transporte: Yup.string()
-    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
-    .default('0'),
-  Servicios: Yup.string()
-    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
-    .default('0'),
-  Seguro: Yup.string()
-    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
-    .default('0'),
-  Varios: Yup.string()
-    .matches(/^\d+(\.\d+)?$/, "Solo se permiten números")
-    .default('0'),
+  hipoteca: Yup.number()
+    .typeError('Solo se permiten números')
+    .default(0),
+  canasta: Yup.number()
+    .typeError('Solo se permiten números')
+    .default(0),
+  prestamos: Yup.number()
+    .typeError('Solo se permiten números')
+    .default(0),
+  transporte: Yup.number()
+    .typeError('Solo se permiten números')
+    .default(0),
+  servicios: Yup.number()
+    .typeError('Solo se permiten números')
+    .default(0),
+  seguro: Yup.number()
+    .typeError('Solo se permiten números')
+    .default(0),
+  varios: Yup.number()
+    .typeError('Solo se permiten números')
+    .default(0),
 }).test(
   'at-least-one-required',
   'Al menos uno de los campos debe estar lleno',
-  values => values.hipoteca.trim() !== '' || 
-            values.Canasta.trim() !== '' || 
-            values.Prestamos.trim() !== '' || 
-            values.Transporte.trim() !== '' || 
-            values.Servicios.trim() !== '' || 
-            values.Seguro.trim() !== '' || 
-            values.Varios.trim() !== ''
+  values => Object.values(values).some(val => val !== 0)
 );
 
 const FormularioEgreso = () => {
+  const [showHipoteca, setShowHipoteca] = useState(false);
+  const [showCanasta, setShowCanasta] = useState(false);
+  const [showPrestamos, setShowPrestamos] = useState(false);
+  const [showTransporte, setShowTransporte] = useState(false);
+  const [showServicios, setShowServicios] = useState(false);
+  const [showSeguro, setShowSeguro] = useState(false);
+  const [showVarios, setShowVarios] = useState(false);
+
   const handleSubmit = (values, { resetForm }) => {
+    const sanitizedValues = {
+      hipoteca: values.hipoteca || 0,
+      canasta: values.canasta || 0,
+      prestamos: values.prestamos || 0,
+      transporte: values.transporte || 0,
+      servicios: values.servicios || 0,
+      seguro: values.seguro || 0,
+      varios: values.varios || 0,
+    };
+
+    console.log('Valores tomados del formulario de egreso:', sanitizedValues);
     Alert.alert('Formulario Enviado');
-    resetForm(); // Vaciar los campos después de enviar
+    resetForm();
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView>
+      <View style={styles.container}>
       <Text style={styles.title}>Formulario de Egresos</Text>
+
       <Formik
         validationSchema={validationSchema}
         initialValues={{
           hipoteca: '',
-          Canasta: '',
-          Prestamos: '',
-          Transporte: '',
-          Servicios: '',
-          Seguro: '',
-          Varios: ''
+          canasta: '',
+          prestamos: '',
+          transporte: '',
+          servicios: '',
+          seguro: '',
+          varios: ''
         }}
         onSubmit={handleSubmit}
       >
         {({ handleChange, handleBlur, handleSubmit, errors, touched, values }) => (
           <>
-            <Text style={styles.texto}>• Alquiler/Hipoteca</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange('hipoteca')}
-              keyboardType="numeric"
-              onBlur={handleBlur('hipoteca')}
-              value={values.hipoteca}
-              placeholder="Digite el monto de la hipoteca"
-            />
-            {touched.hipoteca && errors.hipoteca && (
-              <Text style={styles.errorText}>{errors.hipoteca}</Text>
+            <View style={styles.switchContainer}>
+              <Switch
+                onValueChange={setShowHipoteca}
+                value={showHipoteca}
+              />
+              <Text style={styles.texto}>•Mostrar Alquiler/Hipoteca</Text>
+            </View>
+            {showHipoteca && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange('hipoteca')}
+                  keyboardType="numeric"
+                  onBlur={handleBlur('hipoteca')}
+                  value={values.hipoteca}
+                  placeholder="Digite el monto de la hipoteca"
+                />
+                {touched.hipoteca && errors.hipoteca && (
+                  <Text style={styles.errorText}>{errors.hipoteca}</Text>
+                )}
+              </>
             )}
-
-            <Text style={styles.texto}>• Canasta Básica</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange('Canasta')}
-              keyboardType="numeric"
-              onBlur={handleBlur('Canasta')}
-              value={values.Canasta}
-              placeholder="Cuanto gasta en víveres"
-            />
-            {touched.Canasta && errors.Canasta && (
-              <Text style={styles.errorText}>{errors.Canasta}</Text>
+            <View style={styles.switchContainer}>
+              <Switch
+                onValueChange={setShowCanasta}
+                value={showCanasta}
+              />
+              <Text style={styles.texto}>• Mostrar Canasta Básica</Text>
+            </View>
+            {showCanasta && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange('canasta')}
+                  keyboardType="numeric"
+                  onBlur={handleBlur('canasta')}
+                  value={values.canasta}
+                  placeholder="Cuanto gasta en víveres"
+                />
+                {touched.canasta && errors.canasta && (
+                  <Text style={styles.errorText}>{errors.canasta}</Text>
+                )}
+              </>
             )}
-
-            <Text style={styles.texto}>• Prestamos</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange('Prestamos')}
-              keyboardType="numeric"
-              onBlur={handleBlur('Prestamos')}
-              value={values.Prestamos}
-              placeholder="Monto en prestamos"
-            />
-            {touched.Prestamos && errors.Prestamos && (
-              <Text style={styles.errorText}>{errors.Prestamos}</Text>
+            <View style={styles.switchContainer}>
+              <Switch
+                onValueChange={setShowPrestamos}
+                value={showPrestamos}
+              />
+              <Text style={styles.texto}>• Mostrar Prestamos</Text>
+            </View>
+            {showPrestamos && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange('prestamos')}
+                  keyboardType="numeric"
+                  onBlur={handleBlur('prestamos')}
+                  value={values.prestamos}
+                  placeholder="Monto en prestamos"
+                />
+                {touched.prestamos && errors.prestamos && (
+                  <Text style={styles.errorText}>{errors.prestamos}</Text>
+                )}
+              </>
             )}
-
-            <Text style={styles.texto}>• Transporte</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange('Transporte')}
-              keyboardType="numeric"
-              onBlur={handleBlur('Transporte')}
-              value={values.Transporte}
-              placeholder="Costo del transporte"
-            />
-            {touched.Transporte && errors.Transporte && (
-              <Text style={styles.errorText}>{errors.Transporte}</Text>
+            <View style={styles.switchContainer}>
+              <Switch
+                onValueChange={setShowTransporte}
+                value={showTransporte}
+              />
+              <Text style={styles.texto}>• Mostrar Transporte</Text>
+            </View>
+            {showTransporte && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange('transporte')}
+                  keyboardType="numeric"
+                  onBlur={handleBlur('transporte')}
+                  value={values.transporte}
+                  placeholder="Costo del transporte"
+                />
+                {touched.transporte && errors.transporte && (
+                  <Text style={styles.errorText}>{errors.transporte}</Text>
+                )}
+              </>
             )}
-
-            <Text style={styles.texto}>• Servicios</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange('Servicios')}
-              keyboardType="numeric"
-              onBlur={handleBlur('Servicios')}
-              value={values.Servicios}
-              placeholder="Cuanto gasta en servicios"
-            />
-            {touched.Servicios && errors.Servicios && (
-              <Text style={styles.errorText}>{errors.Servicios}</Text>
+            <View style={styles.switchContainer}>
+              <Switch
+                onValueChange={setShowServicios}
+                value={showServicios}
+              />
+              <Text style={styles.texto}>• Mostrar Servicios</Text>
+            </View>
+            {showServicios && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange('servicios')}
+                  keyboardType="numeric"
+                  onBlur={handleBlur('servicios')}
+                  value={values.servicios}
+                  placeholder="Cuanto gasta en servicios"
+                />
+                {touched.servicios && errors.servicios && (
+                  <Text style={styles.errorText}>{errors.servicios}</Text>
+                )}
+              </>
             )}
-
-            <Text style={styles.texto}>• Seguro</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange('Seguro')}
-              keyboardType="numeric"
-              onBlur={handleBlur('Seguro')}
-              value={values.Seguro}
-              placeholder="El costo de los seguros"
-            />
-            {touched.Seguro && errors.Seguro && (
-              <Text style={styles.errorText}>{errors.Seguro}</Text>
+            <View style={styles.switchContainer}>
+              <Switch
+                onValueChange={setShowSeguro}
+                value={showSeguro}
+              />
+              <Text style={styles.texto}>• Mostrar Seguro</Text>
+            </View>
+            {showSeguro && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange('seguro')}
+                  keyboardType="numeric"
+                  onBlur={handleBlur('seguro')}
+                  value={values.seguro}
+                  placeholder="El costo de los seguros"
+                />
+                {touched.seguro && errors.seguro && (
+                  <Text style={styles.errorText}>{errors.seguro}</Text>
+                )}
+              </>
             )}
-
-            <Text style={styles.texto}>• Gastos varios</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange('Varios')}
-              keyboardType="numeric"
-              onBlur={handleBlur('Varios')}
-              value={values.Varios}
-              placeholder="Establecer si tiene gastos varios"
-            />
-            {touched.Varios && errors.Varios && (
-              <Text style={styles.errorText}>{errors.Varios}</Text>
+            <View style={styles.switchContainer}>
+              <Switch
+                onValueChange={setShowVarios}
+                value={showVarios}
+              />
+              <Text style={styles.texto}>• Mostrar Gastos Varios</Text>
+            </View>
+            {showVarios && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange('varios')}
+                  keyboardType="numeric"
+                  onBlur={handleBlur('varios')}
+                  value={values.varios}
+                  placeholder="Establecer si tiene gastos varios"
+                />
+                {touched.varios && errors.varios && (
+                  <Text style={styles.errorText}>{errors.varios}</Text>
+                )}
+              </>
             )}
 
             <Button
               title="Enviar"
               onPress={handleSubmit}
-              disabled={
-                !(
-                  values.hipoteca.trim() !== '' || 
-                  values.Canasta.trim() !== '' || 
-                  values.Prestamos.trim() !== '' || 
-                  values.Transporte.trim() !== '' || 
-                  values.Servicios.trim() !== '' || 
-                  values.Seguro.trim() !== '' || 
-                  values.Varios.trim() !== ''
-                )
-              }
+              disabled={!Object.values(values).some(val => val.trim() !== '')}
             />
           </>
         )}
       </Formik>
     </View>
+    </ScrollView>
   );
 };
 
@@ -179,7 +249,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    borderColor:'cyan'
+    borderColor: 'cyan',
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   input: {
     height: 40,
@@ -194,14 +269,13 @@ const styles = StyleSheet.create({
   },
   texto: {
     fontSize: 16,
-    marginBottom: 8,
   },
   title: {
-    fontSize: 24,    
-    fontWeight: 'bold', 
-    marginBottom: 24,  
-    textAlign: 'center' 
-  }
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
 });
 
 export default FormularioEgreso;

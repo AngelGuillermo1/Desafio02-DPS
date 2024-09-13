@@ -12,10 +12,6 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.container}>
             <Text style={styles.text}>Bienvenido a la aplicacion de calculo de montos</Text>
             <Button
-            title="Ir al formulario de egreso"
-            onPress={() => navigation.navigate('FormularioEgreso')}
-            />
-            <Button
             title="Ir al formulario de Ingreso"
             onPress={() => navigation.navigate('FormularioIngreso')}
             />

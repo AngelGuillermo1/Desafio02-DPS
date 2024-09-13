@@ -35,7 +35,7 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-const FormularioIngreso = () => {
+const FormularioIngreso = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [formValues, setFormValues] = useState(null);
 
@@ -44,6 +44,7 @@ const FormularioIngreso = () => {
     setFormValues(values);
     setModalVisible(true);
     resetForm();
+    navigation.navigate('FormularioEgreso');
   };
 
   const isSubmitDisabled = (values) => {
@@ -101,45 +102,17 @@ const FormularioIngreso = () => {
             ))}
 
             <Button
-              title="Enviar"
+              title="Siguiente"
               onPress={handleSubmit}
               disabled={isSubmitDisabled(values)}
             />
           </>
         )}
       </Formik>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Formulario Enviado</Text>
-            {formValues && (
-              <View>
-                <Text style={styles.modalSubText}>Tipos de Ingreso:</Text>
-                {formValues.tipoIngreso.map(tipo => (
-                  <Text key={tipo}>
-                    {tiposDeIngreso.find(t => t.value === tipo)?.label}: {formValues.montos[tipo]}
-                  </Text>
-                ))}
-              </View>
-            )}
-            <Button
-              title="Cerrar"
-              onPress={() => setModalVisible(false)}
-            />
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
