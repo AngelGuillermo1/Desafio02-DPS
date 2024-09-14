@@ -2,28 +2,27 @@ import React, { useState, useEffect } from "react";
 import { View, Text, FlatList } from "react-native";
 
 const Prestaciones = ({ route }) => {
-  const { ingresos = { lista: [], total: 0 }, egresos = [] } = route.params || { ingresos: { total: 0 }, egresos: [] }; 
+  const { ingresos = { lista: [], total: 0 }, egresos = [] } = route.params || { ingresos: { total: 0 }, egresos: [] };
   const totalEgresos = Array.isArray(egresos) ? egresos.reduce((acc, curr) => acc + (curr.monto || 0), 0) : 0;
+  const TotalIngreso = ingresos.total;
+  const TotalEgreso = totalEgresos;
+  const disponibilidad = (TotalIngreso - TotalEgreso) / TotalIngreso * 100;
+  
   const [oferta, setOferta] = useState('');
   const [producto, setProducto] = useState([]);
 
-  const TotalIngreso = ingresos.total;
-  const TotalEgreso = totalEgresos;
-
-  const disponibilidad = (TotalIngreso - TotalEgreso) / TotalIngreso * 100;
-
   useEffect(() => {
     resultadoOfertas();
-  }, []);
+  }, [TotalIngreso, TotalEgreso, disponibilidad]);
 
   const resultadoOfertas = () => {
     if (TotalEgreso > TotalIngreso) {
       setOferta('Lo sentimos, usted posee deudas en proceso, le recomendamos saldarlas para ofertarle nuestros productos.');
-      setProducto([]);
-    } else if (TotalIngreso < 360) {
+      setProducto(['Asesor Financiero']);
+    } else if (TotalIngreso <= 360) {
       setOferta('Debido al ingreso total que posee, se le califica con una calificación de riesgo alta. Puede apelar a las siguientes opciones:');
       setProducto(['Apertura de cuenta']);
-    } else if (TotalIngreso > 360 && TotalIngreso < 700) {
+    } else if (TotalIngreso > 360 && TotalIngreso <= 700) {
       if (disponibilidad < 40) {
         setOferta('Calificación de riesgo alta. Las opciones disponibles son:');
         setProducto(['Apertura de cuenta']);
@@ -31,7 +30,7 @@ const Prestaciones = ({ route }) => {
         setOferta('Calificación de riesgo suficiente. Las opciones disponibles son:');
         setProducto(['Apertura de cuenta', 'Tarjeta de Crédito Clásica', 'Crédito personal hasta $2,000.00']);
       }
-    } else if (TotalIngreso > 700 && TotalIngreso < 1200) {
+    } else if (TotalIngreso > 700 && TotalIngreso <= 1200) {
       if (disponibilidad < 20) {
         setOferta('Calificación de riesgo alta. Las opciones disponibles son:');
         setProducto(['Apertura de cuenta']);
@@ -78,7 +77,7 @@ const Prestaciones = ({ route }) => {
       <FlatList
         data={producto}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => <Text>{item}</Text>}
+        renderItem={({ item }) => <Text>- {item}</Text>}
       />
     </View>
   );
