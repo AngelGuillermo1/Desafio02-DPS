@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { PieChart } from 'react-native-gifted-charts';
 
 const Resultados = ({ route }) => {
   const { ingresos = { lista: [], total: 0 }, egresos = [] } = route.params;
-
-  // Asegúrate de que egresos es un arreglo antes de usar reduce
   const totalEgresos = Array.isArray(egresos) ? egresos.reduce((acc, curr) => acc + (curr.monto || 0), 0) : 0;
   const ingresosLibres = ingresos.total - totalEgresos;
   const porcentajeLibre = ingresos.total ? ((ingresosLibres / ingresos.total) * 100).toFixed(2) : '0.00';
@@ -58,7 +56,6 @@ const Resultados = ({ route }) => {
           <Text style={styles.total}>Porcentaje de Ingresos Libres: {porcentajeLibre}%</Text>
         </View>
       </ScrollView>
-      
       <PieChart data={data} style={styles.chart} />
     </View>
   );

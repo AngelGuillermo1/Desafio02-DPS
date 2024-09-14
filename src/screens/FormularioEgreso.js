@@ -24,6 +24,7 @@ const FormularioEgreso = ({ navigation, route }) => {
   const handleSubmit = (values) => {
     const totalEgresos = Object.values(values).reduce((sum, curr) => sum + Number(curr || 0), 0);
     navigation.navigate('Resultados', { ingresos, egresos: Object.entries(values).map(([tipo, monto]) => ({ tipo, monto: Number(monto) })) });
+    navigation.navigate('Prestaciones', { ingresos, egresos: Object.entries(values).map(([tipo, monto]) => ({ tipo, monto: Number(monto) })) });
   };
 
   return (
@@ -44,7 +45,7 @@ const FormularioEgreso = ({ navigation, route }) => {
               <TextInput placeholder="Servicios" onChangeText={handleChange('servicios')} value={values.servicios} style={styles.input} keyboardType="numeric" />
               <TextInput placeholder="Seguro" onChangeText={handleChange('seguro')} value={values.seguro} style={styles.input} keyboardType="numeric" />
               <TextInput placeholder="Varios" onChangeText={handleChange('varios')} value={values.varios} style={styles.input} keyboardType="numeric" />
-
+              <Button title="Regresar" onPress={() => navigation.goBack()} />
               <Button title="Enviar" onPress={handleSubmit} />
             </>
           )}

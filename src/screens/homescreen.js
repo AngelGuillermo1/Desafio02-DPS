@@ -6,9 +6,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FormularioEgreso from "./FormularioEgreso";
 import FormularioIngreso from "./FormularioIngreso";
 import Resultados from "./Resultados";
+import Prestaciones from "./Prestaciones"
 import Inicio from "./Inicio";
 
-// Crea el stack para las pantallas de formularios
 const FormStack = createStackNavigator();
 
 function FormStackScreen() {
@@ -22,16 +22,14 @@ function FormStackScreen() {
     );
 }
 
-// Define el componente para la pantalla de Prestaciones
 const PrestacionesScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Pantalla de Prestaciones (aún por crear)</Text>
-    </View>
+    <FormStack.Navigator>
+      <FormStack.Screen name="Prestaciones" component={Prestaciones}/>
+    </FormStack.Navigator>
   );
 };
 
-// Crea el tab navigator
 const Tab = createBottomTabNavigator();
 
 export default function Home() {
@@ -55,7 +53,7 @@ export default function Home() {
           }} 
         />
         <Tab.Screen 
-          name="Prestaciones" 
+          name="Ofertas" 
           component={PrestacionesScreen} 
           options={{ 
             headerShown: false,
@@ -86,7 +84,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   tabLabel: {
-    fontSize: 16, // Ajusta el tamaño de la fuente aquí
-    fontWeight: 'bold', // Opcional: puedes usar 'normal' para un peso de fuente más ligero
+    fontSize: 16, 
+    fontWeight: 'bold',
   },
 });

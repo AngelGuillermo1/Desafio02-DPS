@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
   tipoIngreso: Yup.array().min(1, 'Debes seleccionar al menos un tipo de ingreso'),
   montos: Yup.object().shape(
     tiposDeIngreso.reduce((schema, tipo) => {
-      schema[tipo.value] = Yup.number()
+      schema[tipo.value] = Yup.number().default(0)
         .nullable()
         .test(
           'is-required',
