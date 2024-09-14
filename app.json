@@ -19,14 +19,22 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+<<<<<<< HEAD
       "package": "com.guillermo1.prestamos"
+=======
+      "package": "com.lissmejia.prestamos"
+>>>>>>> 53d1655b6da6affe4a65340a32429840bbb226e0
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
+<<<<<<< HEAD
         "projectId": "ccabcc87-9af9-4a2f-a114-272c53ea06d2"
+=======
+        "projectId": "7f33d48b-dafa-4a7b-9f19-b8bd1e268b40"
+>>>>>>> 53d1655b6da6affe4a65340a32429840bbb226e0
       }
     }
   }
