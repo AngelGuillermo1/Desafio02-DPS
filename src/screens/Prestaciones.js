@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 
 const Prestaciones = ({ route }) => {
   const { ingresos = { lista: [], total: 0 }, egresos = [] } = route.params || { ingresos: { total: 0 }, egresos: [] };
@@ -67,20 +67,59 @@ const Prestaciones = ({ route }) => {
   };
 
   return (
-    <View>
-      <Text>Prestaciones</Text>
-      <Text>Total Ingresos: {TotalIngreso}</Text>
-      <Text>Total Egresos: {totalEgresos}</Text>
-      <Text>{oferta}</Text>
-
-      <Text>Productos Ofrecidos:</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Prestaciones</Text>
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoText}>Total Ingresos: <Text style={styles.infoValue1}>{TotalIngreso}</Text></Text>
+        <Text style={styles.infoText}>Total Egresos: <Text style={styles.infoValue2}>{totalEgresos}</Text></Text>
+        <Text style={styles.infoText}>{oferta}</Text>
+      </View>
+      <Text style={styles.subtitle}>Productos Ofrecidos:</Text>
       <FlatList
         data={producto}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => <Text>- {item}</Text>}
+        renderItem={({ item }) => <Text style={styles.productItem}>- {item}</Text>}
       />
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333333',
+    marginBottom: 20,
+  },
+  infoContainer: {
+    marginBottom: 20,
+  },
+  infoText: {
+    fontSize: 16,
+    color: '#666666',
+  },
+  infoValue1: {
+    fontWeight: 'bold',
+    color: 'green',
+  },
+  infoValue2: {
+    fontWeight: 'bold',
+    color: 'red',
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333333',
+    marginBottom: 10,
+  },
+  productItem: {
+    fontSize: 16,
+    color: '#555555',
+  },
+});
 export default Prestaciones;
