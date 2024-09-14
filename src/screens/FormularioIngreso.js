@@ -91,10 +91,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-<<<<<<< Updated upstream
-    backgroundColor: '#cyan',
-=======
->>>>>>> Stashed changes
   },
   title: {
     fontSize: 24,
