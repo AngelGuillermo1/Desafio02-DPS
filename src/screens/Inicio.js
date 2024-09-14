@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: '#cyan',
         padding: 20,
     },
     coverImage: {
@@ -40,13 +40,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     button: {
-        backgroundColor: '#007BFF',
+        backgroundColor: '#FFD700',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
     },
     buttonText: {
-        color: '#fff',
+        color: '#000',
         fontSize: 16,
     },
 });
