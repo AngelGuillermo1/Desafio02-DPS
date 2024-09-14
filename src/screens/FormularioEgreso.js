@@ -1,66 +1,51 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Alert, Switch, ScrollView } from 'react-native';
+
+import React from 'react';
+import { View, TextInput, Button, StyleSheet, Text, ScrollView } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
-  hipoteca: Yup.number()
-    .typeError('Solo se permiten números')
-    .default(0),
-  canasta: Yup.number()
-    .typeError('Solo se permiten números')
-    .default(0),
-  prestamos: Yup.number()
-    .typeError('Solo se permiten números')
-    .default(0),
-  transporte: Yup.number()
-    .typeError('Solo se permiten números')
-    .default(0),
-  servicios: Yup.number()
-    .typeError('Solo se permiten números')
-    .default(0),
-  seguro: Yup.number()
-    .typeError('Solo se permiten números')
-    .default(0),
-  varios: Yup.number()
-    .typeError('Solo se permiten números')
-    .default(0),
+  hipoteca: Yup.number().default(0),
+  canasta: Yup.number().default(0),
+  prestamos: Yup.number().default(0),
+  transporte: Yup.number().default(0),
+  servicios: Yup.number().default(0),
+  seguro: Yup.number().default(0),
+  varios: Yup.number().default(0),
 }).test(
   'at-least-one-required',
   'Al menos uno de los campos debe estar lleno',
   values => Object.values(values).some(val => val !== 0)
 );
 
-const FormularioEgreso = () => {
-  const [showHipoteca, setShowHipoteca] = useState(false);
-  const [showCanasta, setShowCanasta] = useState(false);
-  const [showPrestamos, setShowPrestamos] = useState(false);
-  const [showTransporte, setShowTransporte] = useState(false);
-  const [showServicios, setShowServicios] = useState(false);
-  const [showSeguro, setShowSeguro] = useState(false);
-  const [showVarios, setShowVarios] = useState(false);
+const FormularioEgreso = ({ navigation, route }) => {
+  const { ingresos } = route.params;
 
-  const handleSubmit = (values, { resetForm }) => {
-    const sanitizedValues = {
-      hipoteca: values.hipoteca || 0,
-      canasta: values.canasta || 0,
-      prestamos: values.prestamos || 0,
-      transporte: values.transporte || 0,
-      servicios: values.servicios || 0,
-      seguro: values.seguro || 0,
-      varios: values.varios || 0,
-    };
-
-    console.log('Valores tomados del formulario de egreso:', sanitizedValues);
-    Alert.alert('Formulario Enviado');
-    resetForm();
+  const handleSubmit = (values) => {
+    const totalEgresos = Object.values(values).reduce((sum, curr) => sum + Number(curr || 0), 0);
+    navigation.navigate('Resultados', { ingresos, egresos: Object.entries(values).map(([tipo, monto]) => ({ tipo, monto: Number(monto) })) });
   };
 
   return (
     <ScrollView>
       <View style={styles.container}>
-      <Text style={styles.title}>Formulario de Egresos</Text>
+        <Text style={styles.title}>Formulario de Egresos</Text>
+        <Formik
+          validationSchema={validationSchema}
+          initialValues={{ hipoteca: '', canasta: '', prestamos: '', transporte: '', servicios: '', seguro: '', varios: '' }}
+          onSubmit={handleSubmit}
+        >
+          {({ handleChange, handleSubmit, values }) => (
+            <>
+              <TextInput placeholder="Hipoteca" onChangeText={handleChange('hipoteca')} value={values.hipoteca} style={styles.input} keyboardType="numeric" />
+              <TextInput placeholder="Canasta" onChangeText={handleChange('canasta')} value={values.canasta} style={styles.input} keyboardType="numeric" />
+              <TextInput placeholder="Prestamos" onChangeText={handleChange('prestamos')} value={values.prestamos} style={styles.input} keyboardType="numeric" />
+              <TextInput placeholder="Transporte" onChangeText={handleChange('transporte')} value={values.transporte} style={styles.input} keyboardType="numeric" />
+              <TextInput placeholder="Servicios" onChangeText={handleChange('servicios')} value={values.servicios} style={styles.input} keyboardType="numeric" />
+              <TextInput placeholder="Seguro" onChangeText={handleChange('seguro')} value={values.seguro} style={styles.input} keyboardType="numeric" />
+              <TextInput placeholder="Varios" onChangeText={handleChange('varios')} value={values.varios} style={styles.input} keyboardType="numeric" />
 
+<<<<<<< Updated upstream
       <Formik
         validationSchema={validationSchema}
         initialValues={{
@@ -240,6 +225,13 @@ const FormularioEgreso = () => {
         )}
       </Formik>
     </View>
+=======
+              <Button title="Enviar" onPress={handleSubmit} />
+            </>
+          )}
+        </Formik>
+      </View>
+>>>>>>> Stashed changes
     </ScrollView>
   );
 };
@@ -247,34 +239,19 @@ const FormularioEgreso = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     padding: 16,
-    borderColor: 'cyan',
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-  },
-  errorText: {
-    color: 'red',
-    marginBottom: 8,
-  },
-  texto: {
-    fontSize: 16,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 24,
+    marginBottom: 20,
     textAlign: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 8,
   },
 });
 

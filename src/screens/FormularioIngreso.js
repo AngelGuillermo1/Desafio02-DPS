@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Alert, Switch, Modal } from 'react-native';
+import React from 'react';
+import { View, TextInput, Button, StyleSheet, Text, Switch } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -36,26 +36,9 @@ const validationSchema = Yup.object().shape({
 });
 
 const FormularioIngreso = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [formValues, setFormValues] = useState(null);
-
-  const handleSubmit = (values, { resetForm }) => {
-    console.log('Valores al enviar:', values);
-    setFormValues(values);
-    setModalVisible(true);
-    resetForm();
-    navigation.navigate('FormularioEgreso');
-  };
-
-  const isSubmitDisabled = (values) => {
-    if (!Array.isArray(values.tipoIngreso) || values.tipoIngreso.length === 0) return true;
-
-    for (let tipo of values.tipoIngreso) {
-      if (!values.montos[tipo] || values.montos[tipo] <= 0) {
-        return true;
-      }
-    }
-    return false;
+  const handleSubmit = (values) => {
+    const sumIngresos = Object.values(values.montos).reduce((sum, curr) => sum + Number(curr || 0), 0);
+    navigation.navigate('FormularioEgreso', { ingresos: { lista: tiposDeIngreso.map(tipo => ({ tipo: tipo.label, monto: values.montos[tipo.value] || 0 })), total: sumIngresos } });
   };
 
   return (
@@ -66,7 +49,7 @@ const FormularioIngreso = ({ navigation }) => {
         initialValues={{ tipoIngreso: [], montos: {} }}
         onSubmit={handleSubmit}
       >
-        {({ handleChange, handleBlur, handleSubmit, errors, touched, values, setFieldValue }) => (
+        {({ handleChange, handleSubmit, values, setFieldValue }) => (
           <>
             {tiposDeIngreso.map((tipo, index) => (
               <View key={index} style={styles.switchContainer}>
@@ -84,28 +67,19 @@ const FormularioIngreso = ({ navigation }) => {
                     }
                   }}
                 />
-                <Text style={styles.label}>{tipo.label}</Text>
+                <Text>{tipo.label}</Text>
                 {values.tipoIngreso.includes(tipo.value) && (
                   <TextInput
                     style={styles.input}
                     onChangeText={handleChange(`montos.${tipo.value}`)}
                     keyboardType="numeric"
-                    onBlur={handleBlur(`montos.${tipo.value}`)}
-                    value={values.montos[tipo.value] ? values.montos[tipo.value].toString() : ''}
                     placeholder={`Monto de ${tipo.label}`}
+                    value={values.montos[tipo.value]}
                   />
-                )}
-                {touched.montos?.[tipo.value] && errors.montos?.[tipo.value] && (
-                  <Text style={styles.errorText}>{errors.montos[tipo.value]}</Text>
                 )}
               </View>
             ))}
-
-            <Button
-              title="Siguiente"
-              onPress={handleSubmit}
-              disabled={isSubmitDisabled(values)}
-            />
+            <Button title="Siguiente" onPress={handleSubmit} />
           </>
         )}
       </Formik>
@@ -113,12 +87,14 @@ const FormularioIngreso = ({ navigation }) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+<<<<<<< Updated upstream
     backgroundColor: '#cyan',
+=======
+>>>>>>> Stashed changes
   },
   title: {
     fontSize: 24,
@@ -129,8 +105,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: '#ccc',
     borderWidth: 1,
-    paddingHorizontal: 10,
-    borderRadius: 5,
     marginLeft: 8,
     width: '50%',
   },
@@ -138,37 +112,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-  },
-  label: {
-    marginLeft: 8,
-  },
-  errorText: {
-    fontSize: 12,
-    color: 'red',
-    marginLeft: 8,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 10,
-    elevation: 5,
-    minWidth: 300,
-  },
-  modalText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  modalSubText: {
-    fontSize: 16,
-    marginBottom: 15,
   },
 });
 
