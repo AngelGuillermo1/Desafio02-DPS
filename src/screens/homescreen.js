@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation }) => {
                 style={styles.coverImage}
                 resizeMode="cover"
             />
-            <Text style={styles.title}>Bienvenidos a la aplicación de cálculos de montos</Text>
+            <Text style={styles.title}>Bienvenidos a la aplicación de Cálculos de Montos</Text>
             <TouchableOpacity 
                 style={styles.button} 
                 onPress={() => navigation.navigate('FormularioIngreso')}
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f0f8ff', 
+        backgroundColor: '#cyan', 
         padding: 20,
     },
     coverImage: {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     button: {
-        backgroundColor: '#007BFF',
+        backgroundColor: '#FFD700',
         padding: 15,
         borderRadius: 10,
         marginVertical: 10,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        color: '#fff', 
+        color: '#000', 
         fontSize: 18,
         fontWeight: 'bold',
     },
