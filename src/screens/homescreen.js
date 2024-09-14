@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FormularioEgreso from "./FormularioEgreso";
 import FormularioIngreso from "./FormularioIngreso";
 import Resultados from "./Resultados";
-import Prestaciones from "./Prestaciones"
+import Prestaciones from "./Prestaciones";
 import Inicio from "./Inicio";
 
 const FormStack = createStackNavigator();
@@ -21,14 +21,6 @@ function FormStackScreen() {
       </FormStack.Navigator>
     );
 }
-
-const PrestacionesScreen = () => {
-  return (
-    <FormStack.Navigator>
-      <FormStack.Screen name="Prestaciones" component={Prestaciones}/>
-    </FormStack.Navigator>
-  );
-};
 
 const Tab = createBottomTabNavigator();
 
@@ -53,8 +45,8 @@ export default function Home() {
           }} 
         />
         <Tab.Screen 
-          name="Ofertas" 
-          component={PrestacionesScreen} 
+          name="Prestaciones" 
+          component={Prestaciones} 
           options={{ 
             headerShown: false,
             tabBarIcon: ({ color, size }) => (
