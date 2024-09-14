@@ -81,7 +81,7 @@ const FormularioEgreso = () => {
                 onValueChange={setShowHipoteca}
                 value={showHipoteca}
               />
-              <Text style={styles.texto}>•Mostrar Alquiler/Hipoteca</Text>
+              <Text style={styles.texto}>Alquiler/Hipoteca</Text>
             </View>
             {showHipoteca && (
               <>
@@ -91,7 +91,7 @@ const FormularioEgreso = () => {
                   keyboardType="numeric"
                   onBlur={handleBlur('hipoteca')}
                   value={values.hipoteca}
-                  placeholder="Digite el monto de la hipoteca"
+                  placeholder="Monto de Hipoteca"
                 />
                 {touched.hipoteca && errors.hipoteca && (
                   <Text style={styles.errorText}>{errors.hipoteca}</Text>
@@ -103,7 +103,7 @@ const FormularioEgreso = () => {
                 onValueChange={setShowCanasta}
                 value={showCanasta}
               />
-              <Text style={styles.texto}>• Mostrar Canasta Básica</Text>
+              <Text style={styles.texto}>Canasta Básica</Text>
             </View>
             {showCanasta && (
               <>
@@ -113,7 +113,7 @@ const FormularioEgreso = () => {
                   keyboardType="numeric"
                   onBlur={handleBlur('canasta')}
                   value={values.canasta}
-                  placeholder="Cuanto gasta en víveres"
+                  placeholder="Monto de Canasta Basica"
                 />
                 {touched.canasta && errors.canasta && (
                   <Text style={styles.errorText}>{errors.canasta}</Text>
@@ -125,7 +125,7 @@ const FormularioEgreso = () => {
                 onValueChange={setShowPrestamos}
                 value={showPrestamos}
               />
-              <Text style={styles.texto}>• Mostrar Prestamos</Text>
+              <Text style={styles.texto}>Prestamos</Text>
             </View>
             {showPrestamos && (
               <>
@@ -135,7 +135,7 @@ const FormularioEgreso = () => {
                   keyboardType="numeric"
                   onBlur={handleBlur('prestamos')}
                   value={values.prestamos}
-                  placeholder="Monto en prestamos"
+                  placeholder="Monto de Prestamos"
                 />
                 {touched.prestamos && errors.prestamos && (
                   <Text style={styles.errorText}>{errors.prestamos}</Text>
@@ -147,7 +147,7 @@ const FormularioEgreso = () => {
                 onValueChange={setShowTransporte}
                 value={showTransporte}
               />
-              <Text style={styles.texto}>• Mostrar Transporte</Text>
+              <Text style={styles.texto}>Transporte</Text>
             </View>
             {showTransporte && (
               <>
@@ -157,7 +157,7 @@ const FormularioEgreso = () => {
                   keyboardType="numeric"
                   onBlur={handleBlur('transporte')}
                   value={values.transporte}
-                  placeholder="Costo del transporte"
+                  placeholder="Monto de Transporte"
                 />
                 {touched.transporte && errors.transporte && (
                   <Text style={styles.errorText}>{errors.transporte}</Text>
@@ -169,7 +169,7 @@ const FormularioEgreso = () => {
                 onValueChange={setShowServicios}
                 value={showServicios}
               />
-              <Text style={styles.texto}>• Mostrar Servicios</Text>
+              <Text style={styles.texto}>Servicios Públicos</Text>
             </View>
             {showServicios && (
               <>
@@ -179,7 +179,7 @@ const FormularioEgreso = () => {
                   keyboardType="numeric"
                   onBlur={handleBlur('servicios')}
                   value={values.servicios}
-                  placeholder="Cuanto gasta en servicios"
+                  placeholder="Monto de Servicios Publicos"
                 />
                 {touched.servicios && errors.servicios && (
                   <Text style={styles.errorText}>{errors.servicios}</Text>
@@ -191,7 +191,7 @@ const FormularioEgreso = () => {
                 onValueChange={setShowSeguro}
                 value={showSeguro}
               />
-              <Text style={styles.texto}>• Mostrar Seguro</Text>
+              <Text style={styles.texto}>Salud y Seguro</Text>
             </View>
             {showSeguro && (
               <>
@@ -201,7 +201,7 @@ const FormularioEgreso = () => {
                   keyboardType="numeric"
                   onBlur={handleBlur('seguro')}
                   value={values.seguro}
-                  placeholder="El costo de los seguros"
+                  placeholder="Monto de Seguros"
                 />
                 {touched.seguro && errors.seguro && (
                   <Text style={styles.errorText}>{errors.seguro}</Text>
@@ -213,7 +213,7 @@ const FormularioEgreso = () => {
                 onValueChange={setShowVarios}
                 value={showVarios}
               />
-              <Text style={styles.texto}>• Mostrar Gastos Varios</Text>
+              <Text style={styles.texto}>Egresos Varios</Text>
             </View>
             {showVarios && (
               <>
@@ -223,7 +223,7 @@ const FormularioEgreso = () => {
                   keyboardType="numeric"
                   onBlur={handleBlur('varios')}
                   value={values.varios}
-                  placeholder="Establecer si tiene gastos varios"
+                  placeholder="Monto de Egresos Varios"
                 />
                 {touched.varios && errors.varios && (
                   <Text style={styles.errorText}>{errors.varios}</Text>
