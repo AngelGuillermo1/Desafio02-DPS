@@ -19,7 +19,7 @@ const FormularioRegistro = ({ route }) => {
                             <TextInput placeholder="nombres" onChangeText={handleChange('nombres')} value={values.nombres} style={styles.input} />
                             <TextInput placeholder="apellidos" onChangeText={handleChange('apellidos')} value={values.apellidos} style={styles.input}/>
                             <TextInput placeholder="carnet" onChangeText={handleChange('carnet')} value={values.carnet} style={styles.input}/>
-                            <TextInput placeholder="FotoPerfil" onChangeText={handleChange('FotoPerfil')} value={values.FotoPerfil} style={styles.input}/>
+                            <TextInput placeholder="Foto de Perfil" onChangeText={handleChange('FotoPerfil')} value={values.FotoPerfil} style={styles.input}/>
                             <TextInput placeholder="Direccion" onChangeText={handleChange('Direccion')} value={values.Direccion} style={styles.input}/>
                             <TextInput placeholder="Telefono" onChangeText={handleChange('Telefono')} value={values.Telefono} style={styles.input}/>
                         </View>
