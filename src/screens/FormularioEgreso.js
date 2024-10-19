@@ -1,17 +1,7 @@
-import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet, Text, ScrollView, Image } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from "react";
+import { View, TextInput, Button, StyleSheet, Text, ScrollView } from "react-native";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
-// Componentes
-import FormularioIngreso from "./FormularioIngreso";
-import FormularioRegistro from "./FormularioRegistro";
-import Prestaciones from "./Prestaciones";
-import Resultados from "./Resultados";
-import Inicio from "./Inicio";
 
 // Validación de formulario
 const validationSchema = Yup.object().shape({
@@ -65,69 +55,6 @@ const FormularioEgreso = ({ navigation, route, setResultadosEnabled }) => {
   );
 };
 
-const FormStack = createStackNavigator();
-
-function FormStackScreen({ setResultadosEnabled }) {
-  return (
-    <FormStack.Navigator>
-      <FormStack.Screen name="Inicio" component={Inicio} />
-      <FormStack.Screen name="FormularioIngreso" component={FormularioIngreso} />
-      <FormStack.Screen name="FormularioEgreso">
-        {props => <FormularioEgreso {...props} setResultadosEnabled={setResultadosEnabled} />}
-      </FormStack.Screen>
-      <FormStack.Screen name="Prestaciones" component={Prestaciones} />
-      <FormStack.Screen name="FormularioRegistro" component={FormularioRegistro} />
-    </FormStack.Navigator>
-  );
-}
-
-const Tab = createBottomTabNavigator();
-
-export default function Home() {
-  const [isResultadosEnabled, setResultadosEnabled] = useState(false); // Estado para controlar la visibilidad del tab "Resultados"
-
-  return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen 
-          name="Formularios" 
-          component={() => <FormStackScreen setResultadosEnabled={setResultadosEnabled} />} 
-          options={{ 
-            headerShown: false,
-            tabBarIcon: ({ color, size }) => (
-              <Image 
-                source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2875/2875409.png' }} 
-                style={{ width: size, height: size, tintColor: color }} 
-              />
-            ),
-            tabBarLabel: ({ color }) => (
-              <Text style={[styles.tabLabel, { color }]}>Formularios</Text>
-            ),
-          }} 
-        />
-        {isResultadosEnabled && ( // Mostrar "Resultados" solo si isResultadosEnabled es true
-          <Tab.Screen 
-            name="Resultados" 
-            component={Resultados} 
-            options={{ 
-              headerShown: false,
-              tabBarIcon: ({ color, size }) => (
-                <Image 
-                  source={{ uri: 'https://cdn-icons-png.freepik.com/512/157/157977.png' }} 
-                  style={{ width: size, height: size, tintColor: color }} 
-                />
-              ),
-              tabBarLabel: ({ color }) => (
-                <Text style={[styles.tabLabel, { color }]}>Resultados</Text>
-              ),
-            }} 
-          />
-        )}
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -145,8 +72,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal: 8,
   },
-  tabLabel: {
-    fontSize: 16, 
-    fontWeight: 'bold',
-  },
 });
+
+export default FormularioEgreso;
