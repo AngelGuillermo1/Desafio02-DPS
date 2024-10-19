@@ -28,6 +28,10 @@
       "eas": {
         "projectId": "ccabcc87-9af9-4a2f-a114-272c53ea06d2"
       }
-    }
+    }, 
+    "permissions": [
+      "CAMERA",
+      "MEDIA_LIBRARY"
+    ]
   }
 }
