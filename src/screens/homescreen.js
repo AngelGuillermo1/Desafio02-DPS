@@ -7,9 +7,11 @@ import FormularioEgreso from "./FormularioEgreso";
 import FormularioIngreso from "./FormularioIngreso";
 import Resultados from "./Resultados";
 import Prestaciones from "./Prestaciones";
+import FormularioRegistro from "./FormularioRegistro";
 import Inicio from "./Inicio";
 
 const FormStack = createStackNavigator();
+const FormStack2 = createStackNavigator();
 
 function FormStackScreen() {
     return (
@@ -22,6 +24,14 @@ function FormStackScreen() {
     );
 }
 
+function FormStackScreen2(){
+  return(
+  <FormStack2.Navigator>
+    <FormStack2.Screen name="PrestacionesScreen" component={Prestaciones}/>
+    <FormStack2.Screen name="FormularioRegistro" component={FormularioRegistro} />
+  </FormStack2.Navigator>
+  );
+}
 const Tab = createBottomTabNavigator();
 
 export default function Home() {
@@ -46,7 +56,7 @@ export default function Home() {
         />
         <Tab.Screen 
           name="Prestaciones" 
-          component={Prestaciones} 
+          component={FormStackScreen2} 
           options={{ 
             headerShown: false,
             tabBarIcon: ({ color, size }) => (

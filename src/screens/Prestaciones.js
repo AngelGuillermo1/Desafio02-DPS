@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, Button } from "react-native";
 
-const Prestaciones = ({ route }) => {
+const Prestaciones = ({ navigation, route }) => {
   const { ingresos = { lista: [], total: 0 }, egresos = [] } = route.params || { ingresos: { total: 0 }, egresos: [] };
   const totalEgresos = Array.isArray(egresos) ? egresos.reduce((acc, curr) => acc + (curr.monto || 0), 0) : 0;
   const TotalIngreso = ingresos.total;
@@ -10,6 +10,12 @@ const Prestaciones = ({ route }) => {
   
   const [oferta, setOferta] = useState('');
   const [producto, setProducto] = useState([]);
+  const [registro, setRegistro] = useState('');
+  const [buttonRegistro, setButtonRegistro] = useState(false);
+
+  const handleSubmit = () => {
+    navigation.navigate('FormularioRegistro', {producto});
+  };
 
   useEffect(() => {
     resultadoOfertas();
@@ -64,6 +70,14 @@ const Prestaciones = ({ route }) => {
         setProducto(['Apertura de cuenta', 'Tarjeta de Crédito Platinum', 'Tarjeta de crédito Black', 'Crédito personal hasta $50,000.00']);
       }
     }
+
+    const direccionRegistro = () =>{
+      if (TotalEgreso == 0 && TotalIngreso == 0) {
+        setRegistro('Debe llenar primero los datos de los formularios para poder observar sus productos y registrarse.');
+      }else if (TotalEgreso > TotalIngreso){
+        setRegistro('Para reunirse con su asesor financiero primero debe llenare el formulario de registro.');
+      }
+    }
   };
 
   return (
@@ -80,6 +94,8 @@ const Prestaciones = ({ route }) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => <Text style={styles.productItem}>- {item}</Text>}
       />
+      <Text style={styles.subtitle}>{registro}</Text>
+      <Button title="Registrarse" onPress={handleSubmit} />
     </View>
   );
 };
