@@ -18,6 +18,8 @@ const Prestaciones = ({ navigation, route }) => {
   };
 
   useEffect(() => {
+    console.log('Ingresos recibidos:', ingresos);
+    console.log('Egresos recibidos:', egresos);
     resultadoOfertas();
   }, [TotalIngreso, TotalEgreso, disponibilidad]);
 
@@ -68,14 +70,6 @@ const Prestaciones = ({ navigation, route }) => {
       } else {
         setOferta('Calificación de riesgo excelente. Las opciones disponibles son:');
         setProducto(['Apertura de cuenta', 'Tarjeta de Crédito Platinum', 'Tarjeta de crédito Black', 'Crédito personal hasta $50,000.00']);
-      }
-    }
-
-    const direccionRegistro = () =>{
-      if (TotalEgreso == 0 && TotalIngreso == 0) {
-        setRegistro('Debe llenar primero los datos de los formularios para poder observar sus productos y registrarse.');
-      }else if (TotalEgreso > TotalIngreso){
-        setRegistro('Para reunirse con su asesor financiero primero debe llenare el formulario de registro.');
       }
     }
   };
