@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { PieChart } from 'react-native-gifted-charts';
 
 const Resultados = ({ route }) => {
-  const { ingresos = { lista: [], total: 0 }, egresos = [] } = route.params|| { ingresos: { total: 0 }, egresos: [] };
+  const { ingresos = { lista: [], total: 0 }, egresos = [] } = route.params || { ingresos: { total: 0 }, egresos: [] };
   const totalEgresos = Array.isArray(egresos) ? egresos.reduce((acc, curr) => acc + (curr.monto || 0), 0) : 0;
   const ingresosLibres = ingresos.total - totalEgresos;
   const porcentajeLibre = ingresos.total ? ((ingresosLibres / ingresos.total) * 100).toFixed(2) : '0.00';

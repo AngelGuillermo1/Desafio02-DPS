@@ -23,10 +23,9 @@ const FormularioEgreso = ({ navigation, route }) => {
 
   const handleSubmit = (values) => {
     const totalEgresos = Object.values(values).reduce((sum, curr) => sum + Number(curr || 0), 0);
-    const egresos = Object.entries(values).map(([tipo, monto]) => ({ tipo, monto: Number(monto) }));
-    navigation.push('Resultados', { ingresos, egresos });
-    navigation.push('Prestaciones', { ingresos, egresos });
-};
+    navigation.navigate('Resultados', { ingresos, egresos: Object.entries(values).map(([tipo, monto]) => ({ tipo, monto: Number(monto) })) });
+    navigation.navigate('Prestaciones', { ingresos, egresos: Object.entries(values).map(([tipo, monto]) => ({ tipo, monto: Number(monto) })) });
+  };
 
 
   return (
